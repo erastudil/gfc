@@ -1,0 +1,41 @@
+name: gfc
+description: Lint human-facing prose against Greene Feynman Clarity.
+author: Humans and AI
+branding:
+  icon: book-open
+  color: purple
+inputs:
+  path:
+    description: file or directory of prose
+    required: false
+    default: .
+  mode:
+    description: prose or educate
+    required: false
+    default: prose
+  ask-file:
+    description: original ask, for regurgitation and drift
+    required: false
+  corpus:
+    description: directory of prior outputs, for echo
+    required: false
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+    - name: install gfc
+      shell: bash
+      run: pip install "${{ github.action_path }}/.."
+    - name: lint
+      shell: bash
+      run: |
+        extra=()
+        if [ -n "${{ inputs.ask-file }}" ]; then
+          extra+=(--ask-file "${{ inputs.ask-file }}")
+        fi
+        if [ -n "${{ inputs.corpus }}" ]; then
+          extra+=(--corpus "${{ inputs.corpus }}")
+        fi
+        gfc lint "${{ inputs.path }}" --mode "${{ inputs.mode }}" "${extra[@]}"

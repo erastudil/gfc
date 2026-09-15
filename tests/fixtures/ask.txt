@@ -1,0 +1,1 @@
+Write a retry limit of three with exponential backoff for the client

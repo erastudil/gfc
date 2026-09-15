@@ -1,0 +1,22 @@
+{
+  "name": "gfc",
+  "version": "1.0.0",
+  "license": "AGPL-3.0-or-later",
+  "spec": "docs/SPEC.md",
+  "modes": ["prose", "educate"],
+  "lint_rules": [
+    { "id": "G001", "class": "reversal", "severity": "error", "title": "empty not-X-but-Y reversal" },
+    { "id": "G002", "class": "is-not", "severity": "error", "title": "is-not / will-not list" },
+    { "id": "G003", "class": "disclaimer", "severity": "error", "title": "disclaimer theater" },
+    { "id": "G004", "class": "regurgitate", "severity": "error", "title": "prompt regurgitation" },
+    { "id": "G005", "class": "echo", "severity": "error", "title": "exact wording reused across prompts" },
+    { "id": "G006", "class": "latch", "severity": "error", "title": "analogy escaped its container" },
+    { "id": "G007", "class": "emdash", "severity": "error", "title": "em dash density" },
+    { "id": "G008", "class": "hook", "severity": "error", "title": "trailing conversational hook" },
+    { "id": "G009", "class": "mush", "severity": "error", "title": "likeability or marketing mush" },
+    { "id": "G010", "class": "recap", "severity": "error", "title": "recap / in conclusion" },
+    { "id": "G011", "class": "order", "severity": "error", "title": "term before mechanism" },
+    { "id": "G012", "class": "drift", "severity": "error", "title": "thread drift from the ask" },
+    { "id": "G013", "class": "regurgitate", "severity": "error", "title": "heading restates the ask" }
+  ]
+}
