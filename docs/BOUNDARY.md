@@ -25,7 +25,7 @@ this gift is the writing standard for human-facing agent prose. complete for tha
 | [progen](https://github.com/erastudil/progen) | dialect for agent think, write, traces |
 | [zcabs](https://github.com/erastudil/zcabs) | proof of execution |
 | [Platitude](https://github.com/vladzima/platitude) | measured model-judge on rhetorical shape |
-| private life, product genomes, judgement pools | other trees |
+| private credentials, proprietary weights, external databases | other trees |
 
 those jobs have other trees. they are not required to implement gfc. a patch that drags them in is off this gift.
 

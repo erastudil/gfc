@@ -1,5 +1,9 @@
-# Flow in a pipe
+# Writing before the ledger
 
-When water moves slowly through a pipe, it stays in layers. Speed it up and the layers break into swirls. The ratio of those two tendencies has a name: the Reynolds number.
+When a database writes a change to disk, it does not immediately update its tables and indexes. Searching a tree and rewriting blocks scattered across storage takes multiple random writes, any of which can fail mid-stride if the power cuts.
 
-A contained picture: spacetime as a loaf. Slice it and each slice is a now. The rest of this page uses the physics, not the bakery.
+Instead, the engine appends the operation to a single contiguous file at the end of the disk. Because appending requires only one sequential write, the system flushes it to physical media in milliseconds. If the machine crashes immediately after, rebooting reads that linear record from the last checkpoint forward, replaying each completed entry to reconstruct the tables.
+
+That sequential append file has a name: the write-ahead log.
+
+A contained picture: an airline flight recorder. It logs every control movement as it happens, not a reconstructed story after landing. The rest of this architecture relies on the log sequence numbers and byte offsets, not the black box.

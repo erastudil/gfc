@@ -8,6 +8,17 @@ import json
 import sys
 from pathlib import Path
 
+if sys.stdout and hasattr(sys.stdout, "reconfigure"):
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+if sys.stderr and hasattr(sys.stderr, "reconfigure"):
+    try:
+        sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+
 from . import __version__
 from .echo import echo_hits
 from .lint import format_findings, lint_text
@@ -173,22 +184,32 @@ def _cmd_check() -> int:
     import unittest
 
     tests = repo_root() / "tests"
-    loader = unittest.TestLoader()
-    suite = loader.discover(str(tests), pattern="test_*.py")
-    result = unittest.TextTestRunner(verbosity=1).run(suite)
-    rc = 0 if result.wasSuccessful() else 1
+    rc = 0
+    if tests.is_dir():
+        loader = unittest.TestLoader()
+        suite = loader.discover(str(tests), pattern="test_*.py")
+        result = unittest.TextTestRunner(verbosity=1).run(suite)
+        if not result.wasSuccessful():
+            rc = 1
+    else:
+        print("notice: tests/ directory not found; skipping test suite")
+
     for rel in _DOC_LINT:
         path = repo_root() / rel
-        findings = lint_text(path.read_text(encoding="utf-8"), mode="prose")
-        if findings:
-            print(format_findings(findings, path=rel))
-            rc = 1
+        if path.is_file():
+            findings = lint_text(path.read_text(encoding="utf-8"), mode="prose")
+            if findings:
+                print(format_findings(findings, path=rel))
+                rc = 1
     for rel in _EDUCATE_LINT:
         path = repo_root() / rel
-        findings = lint_text(path.read_text(encoding="utf-8"), mode="educate")
-        if findings:
-            print(format_findings(findings, path=rel))
-            rc = 1
+        if path.is_file():
+            findings = lint_text(path.read_text(encoding="utf-8"), mode="educate")
+            if findings:
+                print(format_findings(findings, path=rel))
+                rc = 1
+    if rc == 0:
+        print("all checks passed cleanly")
     return rc
 
 

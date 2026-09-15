@@ -22,8 +22,17 @@ class Finding:
     title: str
 
 
+_DATA_DIR = Path(__file__).resolve().parent / "data"
+
+
 def load_rules() -> list[dict]:
-    path = repo_root() / "spec" / "gfc.v1.json"
+    candidate = repo_root() / "spec" / "gfc.v1.json"
+    if candidate.is_file():
+        path = candidate
+    elif (_DATA_DIR / "gfc.v1.json").is_file():
+        path = _DATA_DIR / "gfc.v1.json"
+    else:
+        raise FileNotFoundError("spec/gfc.v1.json not found in repo or package data")
     data = json.loads(path.read_text(encoding="utf-8"))
     return list(data["lint_rules"])
 

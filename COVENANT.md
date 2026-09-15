@@ -24,4 +24,4 @@ Patches keep AGPL-3.0-or-later. copyright stays with the authors. the project ta
 
 ## integrity
 
-`docs/BOUNDARY.md` names what this gift is. private life and sibling languages stay off this disk. the public spec is complete for the standard. implement from this repo alone.
+`docs/BOUNDARY.md` names what this gift is. Private credentials and unrelated project trees stay off this repository. The public spec is complete for the standard. Implement from this repository alone.
