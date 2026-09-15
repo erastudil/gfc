@@ -27,6 +27,6 @@ SPEC changes need a fixture. a new lint rule needs a fail case and a pass case. 
 
 ## voice
 
-normative text is GFC. README teaches in ordinary english first, then names the term.
+normative text is GFC. the README is GFC. a lesson under `examples/` is the cooked meal. copying the spine of a sibling gift README is a hole. `gfc check` lints the README and the lesson.
 
 this tree is the standard. `docs/BOUNDARY.md`.

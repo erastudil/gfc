@@ -33,4 +33,6 @@ those jobs have other trees. they are not required to implement gfc. a patch tha
 
 an implementer who has only this repository can wire the standard into an agent desk, a CI job, or a skill slot. named sources in SPEC are files in this tree. no private path is load-bearing.
 
+the face of this gift is the practice. README is GFC. `examples/tensor-attention.md` is the cooked meal. `gfc check` lints both.
+
 word lists as the verdict are off this gift. structure is the cheap gate. a frontier-model judge is Platitude's job.
