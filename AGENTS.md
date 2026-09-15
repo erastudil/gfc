@@ -25,6 +25,7 @@ you are in the public gfc tree. standard SoT: `docs/SPEC.md`. license: AGPL-3.0-
 | `docs/BOUNDARY.md` | what this gift is |
 | `prompts/` | drop-in genome and canon |
 | `skills/gfc/` | agent skill |
+| `examples/tensor-attention.md` | GFC lesson. educate-clean |
 | `examples/rewrite.md` | slop → clear |
 | `spec/gfc.v1.json` | rule ids |
 | `src/gfc/` | lint · echo · strip · prompt · cli |

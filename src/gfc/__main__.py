@@ -27,6 +27,8 @@ _DOC_LINT = (
     "skills/gfc/SKILL.md",
 )
 
+_EDUCATE_LINT = ("examples/tensor-attention.md",)
+
 _PROSE_SUFFIX = {".md", ".txt", ".rst"}
 
 
@@ -178,6 +180,12 @@ def _cmd_check() -> int:
     for rel in _DOC_LINT:
         path = repo_root() / rel
         findings = lint_text(path.read_text(encoding="utf-8"), mode="prose")
+        if findings:
+            print(format_findings(findings, path=rel))
+            rc = 1
+    for rel in _EDUCATE_LINT:
+        path = repo_root() / rel
+        findings = lint_text(path.read_text(encoding="utf-8"), mode="educate")
         if findings:
             print(format_findings(findings, path=rel))
             rc = 1

@@ -1,24 +1,44 @@
 # gfc
 
-You asked for a retry limit of three. The model titled the page *Retry Limit of Three*, listed the things it would skip, added a footnote about advice, and asked what you wanted next. You already knew the request. The tokens billed anyway.
+You already know what a good explanation feels like. Halfway through a hard page you see the machine. Then the author gives the thing a name, and the name sticks because it labels a picture you already have.
 
-Richard Feynman named the scientific version of this hole **cargo cult science**: the airstrip is perfect and no plane lands. Agent prose has the same shape. The form of helpfulness, without the thing the human needed to understand.
+Most pages an agent writes run that order backwards. A term, then a decoding of the term, then a paragraph of what the term is not, then a question about whether you want more. You leave able to repeat the label. You cannot see the machine.
 
-Brian Greene's popular physics, and Feynman's lectures, land the plane the other way. First the reader sees the mechanism in words they already have. Spacetime as a loaf of bread, sliced into nows. Then the name arrives, and it feels like recognition: *oh, that's what that's called.*
+Greene's popular physics and Feynman's lectures go the first way. Mechanism in words you already have. Name as recognition: *oh, that's what that's called.*
 
-**Greene Feynman Clarity** (GFC) is that order, written as a standard for agents producing prose a human will read. This repository is the specification, drop-in prompts, an agent skill, and tooling that runs on the Python standard library. License is **AGPL-3.0-or-later**. `LICENSE` · `COVENANT.md`.
+This repository is that order, written down for agents that produce prose a human will read, plus tools that catch the backwards page. The license is AGPL-3.0-or-later.
 
-## start
+The cooked meal is [examples/tensor-attention.md](examples/tensor-attention.md). It teaches the mix that lets every word in a line look at every other word, and only then names tensors, heads, `QK^T`, and the KV cache. Read that. This file is the kitchen.
+
+## What the tools catch
+
+A linter cannot tell whether a page is true. It can tell when a page is doing the backwards dance.
+
+Empty reversal: two short abstractions swapped for rhythm, no number, no name, no measurement. `It's not a tool. It's a teammate.`
+
+A heading that restates the prompt. A six-word stretch of the ask copied into the body. The same eight words in two answers to two prompts. An analogy that escapes its paragraph and becomes the language of the rest of the page. A section that defines the term before anyone has seen the mechanism. A disclaimer costume. A trailing hook that prompts the human for the next token. A run of em dashes doing the work of choosing a period.
+
+The list lives in [`spec/gfc.v1.json`](spec/gfc.v1.json) and [`src/gfc/patterns.py`](src/gfc/patterns.py). Outputs state the is. They do not print the list.
+
+Word-list slop gates score like a coin flip. [Platitude](https://github.com/vladzima/platitude) measured that and built a model-judge on rhetorical shape. Use it when you have a frontier judge and a public English page. This repo stays offline, stdlib only, and also catches wording reused across a corpus of prior answers, which a single-page judge never sees.
+
+[progen](https://github.com/erastudil/progen) is how an agent thinks. This is how it writes for a stranger.
+
+## Run
+
+Python 3.10+. No third-party packages.
 
 ```
-python -m unittest discover -s tests -v
-python -m gfc prompt genome
-python -m gfc lint examples/slop.md
-python -m gfc strip examples/slop.md
-python -m gfc echo examples/echo_a.md --corpus examples
+python -m pip install -e .
+gfc lint examples/tensor-attention.md --mode educate
+gfc lint examples/slop.md
+gfc strip examples/slop.md
+gfc echo examples/echo_a.md --corpus examples
+gfc prompt genome
+gfc check
 ```
 
-From the repo, no install:
+From a checkout, no install:
 
 ```
 # unix
@@ -29,65 +49,18 @@ $env:PYTHONPATH = "src"
 python -m gfc check
 ```
 
-Install:
-
-```
-python -m pip install -e .
-gfc check
-```
-
-Python 3.10+. stdlib only.
-
-## the is
-
-| move | force |
-|---|---|
-| **intuition first, name second** | the mechanism in ordinary words. the term arrives as recognition |
-| **say the is, once** | one claim. skip by skipping |
-| **contained analogy** | a picture that stays in its paragraph, then returns to the thing |
-| **match the ask** | length, register, thread |
-| **silence over hedge** | unknown points stay off the page. Feynman integrity: report what would make the claim fail, or omit |
-| **the artifact is the work** | repeating the request as a heading or a compliance checklist is a second copy |
-| **fresh wording** | the same eight-word stretch across two prompts is a fingerprint |
-
-The linter owns the tell-list so the model does not print it. `spec/gfc.v1.json`.
-
-## kin
-
-Word-list slop gates score like a coin flip. [Platitude](https://github.com/vladzima/platitude) measured that (AUC 0.51 against a blind corpus) and built a structural detector with a frontier-model judge (AUC 0.87). GFC agrees: the mush lives in the shape. This gift is the **writing standard** plus **offline gates** plus **cross-prompt echo**. Pair them. Platitude judges rhetorical shape with a model. GFC states the law and catches what a regex can catch at zero API cost, including wording reused across a corpus of prior answers.
-
-[progen](https://github.com/erastudil/progen) is the dialect for agent think and traces. GFC is the standard for prose a stranger will read. An agent may think in progen and publish in GFC.
-
-## tools
-
 ```
 gfc lint  PATH [--mode prose|educate] [--ask TEXT] [--ask-file FILE] [--corpus DIR] [--json]
-gfc echo  FILE --corpus DIR [--n 8]
+gfc echo  FILE --corpus DIR
 gfc strip FILE
 gfc prompt {genome|canon|warehouse}
 gfc check
 ```
 
-`lint` on a directory walks `.md` `.txt` `.rst`. `educate` adds term-before-mechanism. `--ask` enables prompt regurgitation, heading echo, and thread drift. `--corpus` enables exact-wording reuse.
+`--mode educate` is for lessons and primers. It flags a section that names the term before the mechanism. `--ask` catches regurgitation and drift. `--corpus` catches echo.
 
-## read
+Drop [`prompts/genome.md`](prompts/genome.md) into a system prompt. Drop [`skills/gfc/SKILL.md`](skills/gfc/SKILL.md) into a skill slot. Wire CI with [`action/action.yml`](action/action.yml). The law is [`docs/SPEC.md`](docs/SPEC.md). Desk wiring is [`docs/IMPLEMENTATION.md`](docs/IMPLEMENTATION.md). Scope is [`docs/BOUNDARY.md`](docs/BOUNDARY.md).
 
-| file | is |
-|---|---|
-| [`docs/SPEC.md`](docs/SPEC.md) | the standard. normative |
-| [`docs/IMPLEMENTATION.md`](docs/IMPLEMENTATION.md) | desk, skill, CI wiring |
-| [`docs/BOUNDARY.md`](docs/BOUNDARY.md) | what this gift is |
-| [`prompts/genome.md`](prompts/genome.md) | drop-in system prompt |
-| [`skills/gfc/SKILL.md`](skills/gfc/SKILL.md) | when to check, how to fix, when to stop |
-| [`examples/rewrite.md`](examples/rewrite.md) | slop → clear, worked |
-| [`spec/gfc.v1.json`](spec/gfc.v1.json) | rule ids |
+A picture earns one paragraph. Then the page returns to the thing. Chasing zero findings flattens voice. Stop when the page is clean, or when the remaining hits are deliberate.
 
-## copyleft
-
-Writing clearly is just writing. Copying this spec, these prompts, or this tooling is AGPL. A hosted modified copy owes its users the source.
-
-Official copy stays $0. No company seat. `COVENANT.md`.
-
-## contribute
-
-`CONTRIBUTING.md`. DCO. tests on every SPEC change. this tree is the standard.
+Writing this way is just writing. Copying the spec, the prompts, or the tools is AGPL. A hosted modified copy owes its users the source. Official copy stays $0. `LICENSE` · `COVENANT.md` · `CONTRIBUTING.md`.

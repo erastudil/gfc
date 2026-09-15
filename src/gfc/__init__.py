@@ -6,7 +6,7 @@ from .lint import Finding, lint_text
 from .prompt import load_prompt
 from .strip import strip_text
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 __all__ = [
     "Finding",
     "echo_hits",

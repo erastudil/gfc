@@ -33,6 +33,20 @@ class DocsLint(unittest.TestCase):
             findings = lint_text((root / rel).read_text(encoding="utf-8"), mode="prose")
             self.assertEqual(findings, [], msg=f"{rel}: {findings}")
 
+    def test_tensor_attention_educate_clean(self) -> None:
+        root = repo_root()
+        text = (root / "examples" / "tensor-attention.md").read_text(encoding="utf-8")
+        findings = lint_text(text, mode="educate")
+        self.assertEqual(findings, [], msg=f"{findings}")
+
+    def test_readme_does_not_clone_gift_skeleton(self) -> None:
+        text = (repo_root() / "README.md").read_text(encoding="utf-8")
+        lowered = text.lower()
+        self.assertIn("examples/tensor-attention.md", lowered)
+        self.assertNotIn("\n## start\n", lowered)
+        self.assertNotIn("\n## copyleft\n", lowered)
+        self.assertNotIn("\n## contribute\n", lowered)
+
 
 if __name__ == "__main__":
     unittest.main()
