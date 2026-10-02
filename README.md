@@ -1,5 +1,14 @@
 # gfc
 
+**Greene Feynman Clarity (GFC)** is named in honor of **Brian Greene** and **Richard Feynman**.
+
+This project explicitly credits two physicists whose teaching transformed how difficult ideas are explained:
+
+- **Brian Greene**: Theoretical physicist, mathematician, and Columbia University professor whose research in superstring theory uncovered the physics of mirror symmetry and spatial topology change. Through landmark works including *The Elegant Universe*, *The Fabric of the Cosmos*, and *The Hidden Reality*, Greene demonstrated how to make counterintuitive physics graspable by building direct physical intuition and visual mechanics before presenting formal terminology.
+- **Richard Feynman**: Theoretical physicist, 1965 Nobel laureate in Physics for quantum electrodynamics (QED), and creator of path integral formulations and Feynman diagrams. Through *The Feynman Lectures on Physics*, *QED: The Strange Theory of Light and Matter*, and *The Character of Physical Law*, Feynman proved that genuine understanding requires explaining how nature moves in clear, unadorned terms. He insisted that introducing labels before showing the mechanism only gives the illusion of knowledge.
+
+GFC codifies their shared order: intuition and mechanism first, technical name second.
+
 You already know what a good explanation feels like. Halfway through a hard page you see the machine. Then the author gives the thing a name, and the name sticks because it labels a picture you already have.
 
 Most pages an agent writes run that order backwards. A term, then a decoding of the term, then a paragraph of what the term is not, then a question about whether you want more. You leave able to repeat the label. You cannot see the machine.

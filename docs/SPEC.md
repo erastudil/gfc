@@ -50,6 +50,8 @@ Greene's popular physics and Feynman's lectures share an order.
 
 Wrong order: open with the term, then decode it. The reader memorizes a label before they have a thing.
 
+No thesaurus abuse: use simple words where simple words work. A high school student should read the prose without reaching for a dictionary. Technical depth comes from clear mechanics, not decorative vocabulary.
+
 Educate mode flags a heading section whose first prose sentence introduces the term (`X is a …`, `called X`, `the term X`) before any mechanism.
 
 ---
