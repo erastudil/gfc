@@ -1,10 +1,10 @@
 ---
 name: gfc
 description: >
-  Apply Greene Feynman Clarity to prose a human will read: docs, READMEs,
-  essays, UI copy, mail, textbooks. Use after writing or substantially
-  editing that prose. Offline linter plus echo detector. Returns named
-  spans so the text gets fixed rather than regenerated.
+  Apply Greene Feynman Clarity when the session names gfc: /gfc, a named gfc
+  request, or a prose lint. Docs, READMEs, essays, UI copy, mail, and
+  textbooks take GFC after that request. Offline linter plus echo detector.
+  Returns named spans so the text gets fixed rather than regenerated.
 ---
 
 # gfc
@@ -39,4 +39,4 @@ code, configs, logs, diffs, non-English. quoted specimens are mentions.
 
 ## kin
 
-[Platitude](https://github.com/vladzima/platitude) is a measured model-judge on rhetorical shape. Run GFC first. Add Platitude when a frontier judge is available and the page is public English. [progen](https://github.com/erastudil/progen) is the think-dialect. published prose stays GFC.
+[Platitude](https://github.com/vladzima/platitude) is a measured model-judge on rhetorical shape. Run GFC first. Add Platitude when a frontier judge is available and the page is public English. [progen](https://github.com/erastudil/progen) stays the default dialect. a named gfc request writes the page in GFC.

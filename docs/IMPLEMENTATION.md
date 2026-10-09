@@ -144,7 +144,7 @@ gfc does not call a model. platitude does. they share the claim that slop is str
 
 ## 9. pair with progen
 
-think and traces: progen. published prose: gfc. keep the dialect marks off the page the stranger reads. `progen iron` is for topic-comment. `gfc strip` is for the is in ordinary english.
+think and traces: progen. published prose: gfc. keep the dialect marks off the page the stranger reads. `progen syntax` is for topic-comment. `gfc strip` is for the is in ordinary english.
 
 ---
 
