@@ -32,11 +32,11 @@ prose requirement : all human-facing documentation pages in this repository must
 verification command : python -m gfc check.
 
 
-## verification and ponytail doctrine
+## verification and wuwei doctrine
 
 verification gate : execute python -m gfc check before asserting lint, echo, or strip completion; require exit code 0.
 
-ponytail wu wei : pull all test verification into single-grip deterministic runner python -m gfc check; reject sprawling test catalogs.
+wuwei wu wei : pull all test verification into single-grip deterministic runner python -m gfc check; reject sprawling test catalogs.
 
 zero fake tests : verify against real text corpora, AST parsers, and normative specimens without synthetic mocks.
 
