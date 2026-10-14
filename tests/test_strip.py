@@ -28,10 +28,19 @@ class Strip(unittest.TestCase):
         out = strip_text(raw)
         self.assertIn("I'd be happy to help!", out)
 
+    def test_keeps_blockquote(self) -> None:
+        raw = "> It's not a tool. It's a teammate.\n"
+        out = strip_text(raw)
+        self.assertIn("> It's not a tool. It's a teammate.", out)
+
     def test_collapses_reversal(self) -> None:
         out = strip_text("It's not a tool. It's a teammate.\n")
         self.assertIn("teammate", out.lower())
         self.assertNotIn("not a tool", out.lower())
+
+    def test_collapses_reversal_not_a(self) -> None:
+        out = strip_text("Not a tool, a teammate.\n")
+        self.assertEqual(out.strip(), "A teammate.")
 
 
 if __name__ == "__main__":

@@ -26,7 +26,7 @@ def strip_text(source: str) -> str:
             if out and out[-1] != "":
                 out.append("")
             continue
-        if stripped.startswith("#") or stripped.startswith("|"):
+        if stripped.startswith("#") or stripped.startswith("|") or stripped.startswith(">"):
             out.append(raw.rstrip())
             continue
         stripped = _positive(stripped)
@@ -61,16 +61,26 @@ def _drop(s: str) -> bool:
 
 def _positive(s: str) -> str:
     m = patterns.SIDES.search(s)
-    if not m:
-        return s
-    y = m.group(2).strip().rstrip(".")
-    if not y:
-        return s
-    if y[0].islower():
-        y = y[0].upper() + y[1:]
-    if not y.endswith((".", "!", "?")):
-        y = y + "."
-    return y
+    if m:
+        y = m.group(2).strip().rstrip(".")
+        if y:
+            if y[0].islower():
+                y = y[0].upper() + y[1:]
+            if not y.endswith((".", "!", "?")):
+                y = y + "."
+            return y
+    m = patterns.REVERSAL_NOT_A.search(s)
+    if m:
+        parts = s.split(",", 1)
+        if len(parts) == 2:
+            y = parts[1].strip().rstrip(".")
+            if y:
+                if y[0].islower():
+                    y = y[0].upper() + y[1:]
+                if not y.endswith((".", "!", "?")):
+                    y = y + "."
+                return y
+    return s
 
 
 def _dashes(s: str) -> str:

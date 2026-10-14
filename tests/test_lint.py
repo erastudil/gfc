@@ -90,6 +90,24 @@ class LintShapes(unittest.TestCase):
         text = "The host stores a number — the agent must read the file.\n"
         self.assertNotIn("G007", ids(text))
 
+    def test_order_code_fence_skipped(self) -> None:
+        doc = (
+            "# Attention Mechanism\n\n"
+            "## Code Example\n\n"
+            "```python\n"
+            "# The following is helper code\n"
+            "Tensor = 'matrix'\n"
+            "```\n\n"
+            "When words look at other words, they form connections.\n"
+        )
+        self.assertEqual(lint_text(doc, mode="educate"), [])
+
+    def test_no_duplicate_findings_same_line(self) -> None:
+        line = "I would be happy to leverage this robust framework.\n"
+        findings = lint_text(line)
+        self.assertEqual(len(findings), 1)
+        self.assertEqual(findings[0].rule, "G009")
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -48,8 +48,13 @@ def lint_text(
     rules = {r["id"]: r for r in load_rules()}
     visible = text.mask_fences(source)
     lines = visible.splitlines()
+    seen_findings: set[tuple[str, int]] = set()
 
     def add(rule_id: str, line: int, excerpt: str) -> None:
+        key = (rule_id, line)
+        if key in seen_findings:
+            return
+        seen_findings.add(key)
         meta = rules[rule_id]
         findings.append(
             Finding(
@@ -68,12 +73,15 @@ def lint_text(
         if text.quote_line(line):
             continue
         check = stripped.strip("|") if stripped.startswith("|") else stripped
-        if patterns.MUSH.search(check) or patterns.AS_AI.search(check):
+        if (
+            patterns.MUSH.search(check)
+            or patterns.AS_AI.search(check)
+            or patterns.MARKETING.search(check)
+            or patterns.ROBUST.search(check)
+        ):
             add("G009", i, stripped)
         if patterns.DISCLAIMER.search(check):
             add("G003", i, stripped)
-        if patterns.MARKETING.search(check) or patterns.ROBUST.search(check):
-            add("G009", i, stripped)
         if patterns.RECAP.search(check):
             add("G010", i, stripped)
         if _reversal_empty(check):
@@ -217,7 +225,9 @@ def _title(visible: str) -> str:
 
 def _order(source: str, add) -> None:
     """first prose sentence of a heading section names the term before the mechanism."""
-    lines = source.splitlines()
+    # Mask code fences so code statements and code comments are not treated as section prose
+    masked = text.mask_fences(source)
+    lines = masked.splitlines()
     section_start = 1
     buf: list[tuple[int, str]] = []
 
