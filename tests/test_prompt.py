@@ -5,11 +5,13 @@ import json
 import sys
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 _SRC = Path(__file__).resolve().parents[1] / "src"
 if str(_SRC) not in sys.path:
     sys.path.insert(0, str(_SRC))
 
+from gfc.lint import load_rules
 from gfc.prompt import load_prompt, repo_root
 
 
@@ -23,6 +25,10 @@ class Prompts(unittest.TestCase):
         text = load_prompt("canon")
         self.assertIn("gfc lint", text)
         self.assertIn("AGPL", text)
+
+    def test_warehouse_names_spec(self) -> None:
+        text = load_prompt("warehouse")
+        self.assertIn("docs/SPEC.md", text)
 
     def test_unknown_prompt(self) -> None:
         with self.assertRaises(ValueError):
@@ -49,6 +55,15 @@ class Prompts(unittest.TestCase):
                 "G013",
             },
         )
+
+    def test_packaged_data_fallback_without_repo_root(self) -> None:
+        missing_root = repo_root() / "__nonexistent_wheel_root__"
+        with patch("gfc.prompt.repo_root", return_value=missing_root):
+            for name in ("genome", "canon", "warehouse"):
+                self.assertTrue(load_prompt(name).strip())
+        with patch("gfc.lint.repo_root", return_value=missing_root):
+            rules = load_rules()
+            self.assertEqual(len(rules), 13)
 
     def test_license_files_exist(self) -> None:
         root = repo_root()
