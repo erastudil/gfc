@@ -31,11 +31,19 @@ _DOC_LINT = (
     "docs/BOUNDARY.md",
     "prompts/genome.md",
     "prompts/canon.md",
+    "prompts/warehouse.md",
     "README.md",
     "AGENTS.md",
     "COVENANT.md",
     "examples/clear.md",
     "skills/gfc/SKILL.md",
+)
+
+_DATA_PARITY = (
+    ("spec/gfc.v1.json", "src/gfc/data/gfc.v1.json"),
+    ("prompts/genome.md", "src/gfc/data/genome.md"),
+    ("prompts/canon.md", "src/gfc/data/canon.md"),
+    ("prompts/warehouse.md", "src/gfc/data/warehouse.md"),
 )
 
 _EDUCATE_LINT = ("examples/tensor-attention.md",)
@@ -207,6 +215,13 @@ def _cmd_check() -> int:
             findings = lint_text(path.read_text(encoding="utf-8"), mode="educate")
             if findings:
                 print(format_findings(findings, path=rel))
+                rc = 1
+    for src_rel, data_rel in _DATA_PARITY:
+        src_path = repo_root() / src_rel
+        data_path = repo_root() / data_rel
+        if src_path.is_file() and data_path.is_file():
+            if src_path.read_bytes() != data_path.read_bytes():
+                print(f"error: packaged data drift between {src_rel} and {data_rel}")
                 rc = 1
     if rc == 0:
         print("all checks passed cleanly")
