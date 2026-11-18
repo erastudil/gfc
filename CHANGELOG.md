@@ -1,5 +1,10 @@
 # changelog
 
+## unreleased
+
+- `skills/gfc/SKILL.md` expanded: setup routes, inputs, the thirteen rules, the fix loop, pitfalls
+- G008 catches the inverted hook: a page ending in a `would you like me to` question flags beside the `what would you like` form
+
 ## 1.0.1 - 2026-09-15
 
 eat our own cooking.

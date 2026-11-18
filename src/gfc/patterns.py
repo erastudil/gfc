@@ -34,14 +34,14 @@ RECAP = re.compile(
     re.IGNORECASE,
 )
 HOOK = re.compile(
-    r"\b(what should we\b|what would you like\b|want me to\b|shall i\b|"
+    r"\b(what should we\b|what would you like\b|would you like me to\b|want me to\b|shall i\b|"
     r"let me know if\b|anything else i can\b|how can i (help|assist)\b|"
     r"what would you like (me )?to (do|work on)\b|"
     r"feel free to (ask|reach)\b)\b",
     re.IGNORECASE,
 )
 HOOK_END = re.compile(
-    r"(what should we|what would you like|want me to|shall i|"
+    r"(what should we|what would you like|would you like me to|want me to|shall i|"
     r"let me know if|anything else|how can i help|feel free to).{0,40}\?\s*$",
     re.IGNORECASE,
 )

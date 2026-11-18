@@ -102,6 +102,10 @@ class LintShapes(unittest.TestCase):
         )
         self.assertEqual(lint_text(doc, mode="educate"), [])
 
+    def test_trailing_hook_would_you_like(self) -> None:
+        text = "The report is ready.\n\nWould you like me to draft the summary?\n"
+        self.assertIn("G008", ids(text))
+
     def test_no_duplicate_findings_same_line(self) -> None:
         line = "I would be happy to leverage this robust framework.\n"
         findings = lint_text(line)
